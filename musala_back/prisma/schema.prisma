@@ -1,0 +1,28 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Gateway {
+  id                        Int        @id @default(autoincrement())
+  serial_mumber             String     @unique
+  human_readable_name       String
+  ipv4_address              String  
+  peripheral_device         Peripheral_device[]  
+}
+
+model Peripheral_device  {
+  id                        Int        @id @default(autoincrement())
+  vendor                    String   
+  date_created              DateTime   @default(now())
+  status                    String
+  gateway                   Gateway    @relation(fields: [gatewayId], references: [id], onUpdate: Cascade, onDelete: Cascade)
+  gatewayId                 Int       
+}

@@ -1,0 +1,36 @@
+{
+  "name": "api-ez",
+  "version": "1.0.0",
+  "description": "a simple way to make APIs",
+  "main": "lib/main.ts",
+  "author": "aanunez96",
+  "license": "MIT",
+  "scripts": {
+    "start": "nodemon src/app.ts",
+    "lint": "CI=true eslint 'lib/**/*.{ts,tsx,js}' "
+  },
+  "prisma": {
+    "seed": "ts-node prisma/seed.ts"
+  },
+  "dependencies": {
+    "@prisma/client": "^3.0.1",
+    "@types/express": "^4.17.13",
+    "express": "^4.17.1",
+    "nodemon": "^2.0.12",
+    "react-router-dom": "^6.4.3"
+  },
+  "devDependencies": {
+    "@types/node": "^16.18.3",
+    "@typescript-eslint/eslint-plugin": "^4.29.3",
+    "@typescript-eslint/parser": "^4.29.3",
+    "eslint": "^5.16.0",
+    "eslint-config-airbnb-base": "^14.2.1",
+    "eslint-plugin-eslint-comments": "^3.2.0",
+    "eslint-plugin-import": "^2.22.1",
+    "eslint-plugin-promise": "^5.1.0",
+    "eslint-plugin-unicorn": "^29.0.0",
+    "prisma": "^3.15.2",
+    "ts-node": "^10.9.1",
+    "typescript": "^4.8.4"
+  }
+}

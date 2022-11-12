@@ -1,0 +1,15 @@
+.hidden-footer .ant-modal-confirm-btns{
+
+    display:none !important;
+
+}
+
+.boxes {
+    transform: scaleX(-1);
+  }
+ 
+  .boxes button {
+    float: left;
+    transform: scaleX(-1);
+    margin: 6px;    
+  }
