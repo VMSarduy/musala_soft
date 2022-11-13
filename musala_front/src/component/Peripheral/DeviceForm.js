@@ -7,12 +7,12 @@ const dateFormat = 'YYYY/MM/DD';
 function DeviceForm(props) {
 
   const {
-    Peripherald,
+    peripheralAdd,
     id,    
   } = props;
 
   const onFinish = values => {
-    Peripherald(values);
+    peripheralAdd(values);
   };
  
 

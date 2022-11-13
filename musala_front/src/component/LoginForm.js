@@ -16,63 +16,62 @@ function LoginForm(props) {
 
     return (
       
-      <div>
-      <br></br>
-      <Form
-      labelCol={{
-        span: 6,
-      }}
-      wrapperCol={{
-        span: 22,
-      }}
-      layout="vertical"      
-      onFinish={onFinish}
-              
-    >
-       {(error !== "") ? (<div>{error}</div>) : ""}
-               
-        <Form.Item     
-          name="email"
-          rules={[
-            {
-              required: true,
-              message: 'Please enter a valid email!',
-            },
-          ]}
-        >
-          <Input prefix={<MailOutlined className="site-form-item-icon" />} 
-            type="email"
-            placeholder="Email"
-            onChange={e => SetDetails({...details, email: e.target.value})} value={details.email}
+      <div className="App"> <br></br>       
+        <Form
+        labelCol={{
+          span: 6,
+        }}
+        wrapperCol={{
+          span: 22,
+        }}
+        layout="vertical"      
+        onFinish={onFinish}
+                
+      >
+        {(error !== "") ? (<div>{error}</div>) : ""}
+                
+          <Form.Item     
+            name="email"
+            rules={[
+              {
+                required: true,
+                message: 'Please enter a valid email!',
+              },
+            ]}
+          >
+            <Input prefix={<MailOutlined className="site-form-item-icon" />} 
+              type="email"
+              placeholder="Email"
+              onChange={e => SetDetails({...details, email: e.target.value})} value={details.email}
+              />
+          </Form.Item>
+          
+          <Form.Item        
+            name="password"
+            rules={[
+              {
+                required: true,
+                message: 'Please enter a valid password!',
+              },
+            ]}
+          >
+            <Input.Password
+              prefix={<LockOutlined className="site-form-item-icon" />}
+              type="password"
+              placeholder="Password"
+              onChange={e => SetDetails({...details, password: e.target.value})} value={details.password}
             />
-        </Form.Item>
-        
-        <Form.Item        
-          name="password"
-          rules={[
-            {
-              required: true,
-              message: 'Please enter a valid password!',
-            },
-          ]}
-        >
-          <Input.Password
-            prefix={<LockOutlined className="site-form-item-icon" />}
-            type="password"
-            placeholder="Password"
-            onChange={e => SetDetails({...details, password: e.target.value})} value={details.password}
-          />
-        </Form.Item>   
-        
-        <Form.Item shouldUpdate>
-          {() => (            
-            <nav className="boxes">
-            <Button ghost type="primary" htmlType="submit"> Loging </Button>             
-            </nav>             
-          )}
-        </Form.Item>  
+          </Form.Item>   
+          
+          <Form.Item shouldUpdate>
+            {() => (            
+              <nav className="boxes">
+              <Button ghost type="primary" htmlType="submit"> Loging </Button>             
+              </nav>             
+            )}
+          </Form.Item>  
 
-      </Form>
+        </Form>
       </div>
         
        

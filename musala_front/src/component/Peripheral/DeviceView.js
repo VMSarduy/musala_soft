@@ -8,7 +8,7 @@ const dateFormat = 'YYYY/MM/DD';
 function DeviceView(props) {
 
   const {
-    PeripheraldView,
+    peripheraldView,
     viewG,    
   } = props;
 
@@ -19,7 +19,7 @@ function DeviceView(props) {
     };
 
   const onFinish = values => {
-    PeripheraldView(values);    
+    peripheraldView(values);    
   };
 
   

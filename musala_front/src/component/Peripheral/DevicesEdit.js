@@ -9,12 +9,12 @@ const dateFormat = 'YYYY/MM/DD';
 function DevicesEdit(props) { 
 
   const {
-    Peripheral_deviceedit,
+    peripheralDeviceEdit,
     editP,    
   } = props;
   
   const onFinish = (values) => {    
-    Peripheral_deviceedit(values);
+    peripheralDeviceEdit(values);
   }; 
  
     return(

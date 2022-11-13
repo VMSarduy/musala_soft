@@ -2,31 +2,30 @@ import {Form, Input, Button, Modal} from 'antd';
 import { InfoCircleOutlined } from '@ant-design/icons';
 import '../styles.css'
 
+function cancel() { 
+  Modal.destroyAll();    
+}
+
+function isValidIP(str) {
+  let verdad = str.split('.');
+  if(verdad.length !== 4)
+    return false;
+  for(let i in verdad){
+    if(!/^\d+$/g.test(verdad[i])
+    ||+verdad[i]>255
+    ||+verdad[i]<0
+    ||/^[0][0-9]{1,2}/.test(verdad[i]))
+      return false;
+  }
+  return true
+}
 
 function Create(props) {    
-const {Gateway} = props;
-const onFinish = (values) => {
-    
-    Gateway(values);
-  };
+const {gatewayCreate} = props;
 
-  function Cancel() { 
-    Modal.destroyAll();    
-  }
-
-  function isValidIP(str) {
-    let verdad = str.split('.');
-    if(verdad.length !== 4)
-      return false;
-    for(let i in verdad){
-      if(!/^\d+$/g.test(verdad[i])
-      ||+verdad[i]>255
-      ||+verdad[i]<0
-      ||/^[0][0-9]{1,2}/.test(verdad[i]))
-        return false;
-    }
-    return true
-}
+const onFinish = (values) => {    
+  gatewayCreate(values);
+  }; 
 
     return(
 
@@ -61,7 +60,7 @@ const onFinish = (values) => {
             icon: <InfoCircleOutlined />,
           }}
         >
-          <Input placeholder="Serial Number of Gateway" />
+          <Input placeholder="Serial Number of gateway" />
       </Form.Item>
 
       <Form.Item
@@ -78,7 +77,7 @@ const onFinish = (values) => {
             icon: <InfoCircleOutlined />,
           }}
         >
-          <Input placeholder="Readable Name of Gateway" />
+          <Input placeholder="Readable Name of gateway" />
       </Form.Item>
 
       <Form.Item
@@ -104,7 +103,7 @@ const onFinish = (values) => {
             icon: <InfoCircleOutlined />,
           }}
         >
-          <Input placeholder="IPv4 Address of Gateway" />
+          <Input placeholder="IPv4 Address of gateway" />
           
       </Form.Item>
       
@@ -114,7 +113,7 @@ const onFinish = (values) => {
           {() => (            
             <nav className="boxes">            
             <Button  ghost type="primary" htmlType="submit"> Submit </Button>
-            <Button  ghost type="danger" onClick={() => Cancel()}>Cancel</Button>             
+            <Button  ghost type="danger" onClick={() => cancel()}>Cancel</Button>             
             </nav>             
           )}
         </Form.Item>       

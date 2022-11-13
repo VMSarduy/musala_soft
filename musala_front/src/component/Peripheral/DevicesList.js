@@ -14,7 +14,7 @@ const DevicesList = () => {
 
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(false);
-  const [peripheral_device, Setperipheral_device] = useState();
+  const [peripheralDevice, setPeripheralDevice] = useState();
   
   const { info, error } = Modal;
   const { Column } = Table;
@@ -29,19 +29,19 @@ const DevicesList = () => {
     
     }, [])
 
-  const Peripheral_deviceedit = dataEdit => {  
+  const peripheralDeviceEdit = dataEdit => {  
        
-    if(dataEdit !=="" &&  peripheral_device !== dataEdit){
-      axios.put(`http://localhost:3001/peripheral_device/${dataEdit.id}`,{ ...dataEdit}).then(() => Success())
+    if(dataEdit !=="" &&  peripheralDevice !== dataEdit){
+      axios.put(`http://localhost:3001/peripheral_device/${dataEdit.id}`,{ ...dataEdit}).then(() => success())
       .catch(function (error) {console.log(error);}); 
       }
   }
 
-  function PeripheraldView() { 
+  function peripheraldView() { 
     Modal.destroyAll();    
    }
 
-    function ForVew(viewG){
+    function forVew(viewG){
       
       info({
 
@@ -50,15 +50,15 @@ const DevicesList = () => {
         width:1400,
         className:'hidden-footer',
         closable:'true',
-        content:<DeviceView PeripheraldView={PeripheraldView} viewG={viewG}/>,
+        content:<DeviceView peripheraldView={peripheraldView} viewG={viewG}/>,
 
       });
       
     }    
 
-    function ForEdit(editP){
+    function forEdit(editP){
       
-      Setperipheral_device(editP);
+      setPeripheralDevice(editP);
 
       info({
 
@@ -67,13 +67,13 @@ const DevicesList = () => {
         width:1400,
         className:'hidden-footer',
         closable:'true',
-        content:<DevicesEdit Peripheral_deviceedit={Peripheral_deviceedit} editP={editP} SuccessForEdit={SuccessForEdit}/>,
+        content:<DevicesEdit peripheralDeviceEdit={peripheralDeviceEdit} editP={editP}/>,
 
       });
 
     } 
 
-    function ForDelete(deleteG) {
+    function forDelete(deleteG) {
       
       error({
 
@@ -84,13 +84,13 @@ const DevicesList = () => {
         okButtonProps:{ghost:"true", type:"danger"},
         content: 'This peripheral device will be permanently removed from the database. This action cannot be reversed...',
         onOk() {
-          axios.delete(`http://localhost:3001/peripheral_device/${deleteG.id}`).then(() => Success()).catch(function (error) {console.log(error);});
+          axios.delete(`http://localhost:3001/peripheral_device/${deleteG.id}`).then(() => success()).catch(function (error) {console.log(error);});
         },
                  
       });
     }
     
-    function Success(){
+    function success(){
 
       setLoading(true);
       axios.get('http://localhost:3001/peripheral_device/', {headers: {} }).then( result => setData(result.data.result))  
@@ -104,20 +104,7 @@ const DevicesList = () => {
         })
     }
 
-    function SuccessForEdit(Peripheral_deviceedit){
-      
-      Modal.destroyAll();      
-      
-      axios.get(`http://localhost:3001/peripheral_device/` + Peripheral_deviceedit.id, {headers: {} }).then(function (result) {ForEdit(result.data);})  
-      .catch(function (error) {console.log(error);})
-      
-      notification['success']({
-        message:"Successful operation",
-        description:"Your operation was successful.",              
-        })     
-    }
-
-     return(
+    return(
       
       <div>
             
@@ -143,9 +130,9 @@ const DevicesList = () => {
               rowKey="action"
               render={(data) => (
             <Space size="middle">
-              <Button  icon={<EyeOutlined />}   onClick={() => ForVew(data)}></Button>                                          
-              <Button  icon={<EditOutlined />}   onClick={() => ForEdit(data)}></Button>                                            
-              <Button  icon={<DeleteOutlined />}  onClick={() => ForDelete(data)}></Button>            
+              <Button  icon={<EyeOutlined />}   onClick={() => forVew(data)}></Button>                                          
+              <Button  icon={<EditOutlined />}   onClick={() => forEdit(data)}></Button>                                            
+              <Button  icon={<DeleteOutlined />}  onClick={() => forDelete(data)}></Button>            
             </Space>
         )}
             />    

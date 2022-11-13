@@ -13,7 +13,7 @@ const List = () => {
 
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(false);
-  const [gateway, Setgateway] = useState();
+  const [gateway, setGateway] = useState();
   
   const { info, error } = Modal;
   const { Column } = Table;
@@ -28,28 +28,28 @@ const List = () => {
     
     }, [])
   
-  const Gateway = details => { 
+  const gatewayCreate = details => { 
     
     if(details !=="" &&  details !== []  ){
      
-      axios.post('http://localhost:3001/gateway/', { ...details}).then(() => Success())
+      axios.post('http://localhost:3001/gateway/', { ...details}).then(() => success())
       .catch(function (error) {console.log(error);}); 
     }
   }
 
-  const Gatewayedit = dataEdit => {  
+  const gatewayEdit = dataEdit => {  
        
     if(dataEdit !=="" &&  gateway !== dataEdit &&  gateway !== [] ){
-      axios.put(`http://localhost:3001/gateway/${dataEdit.id}`,{ ...dataEdit}).then(() => Success())
+      axios.put(`http://localhost:3001/gateway/${dataEdit.id}`,{ ...dataEdit}).then(() => success())
       .catch(function (error) {console.log(error);}); 
       }
   }
 
-  function GatewayView() { 
+  function gatewayView() { 
     Modal.destroyAll();    
    }
 
-    function ForCreate(){
+    function forCreate(){
 
       info({
 
@@ -58,13 +58,13 @@ const List = () => {
         width:1000,
         closable:'true',
         className:'hidden-footer',        
-        content:<Create Gateway={Gateway}/>,
+        content:<Create gatewayCreate={gatewayCreate}/>,
 
       });
       
     }
 
-    function ForVew(viewG){
+    function forVew(viewG){
       
       info({
 
@@ -73,15 +73,15 @@ const List = () => {
         width:1400,
         className:'hidden-footer',
         closable:'true',                
-        content:<View GatewayView={GatewayView} viewG={viewG}/>,
+        content:<View gatewayView={gatewayView} viewG={viewG}/>,
 
       });
       
     }    
 
-    function ForEdit(editG){
+    function forEdit(editG){
       
-      Setgateway(editG);
+      setGateway(editG);
 
       info({
 
@@ -90,13 +90,13 @@ const List = () => {
         width:1400,
         className:'hidden-footer',
         closable:'true',
-        content:<Edit Gatewayedit={Gatewayedit} editG={editG} SuccessForEdit={SuccessForEdit}/>,
+        content:<Edit gatewayEdit={gatewayEdit} editG={editG} successForEdit={successForEdit}/>,
 
       });
 
     } 
 
-    function ForDelete(deleteG) {
+    function forDelete(deleteG) {
       
       error({
 
@@ -106,12 +106,12 @@ const List = () => {
         closable:'true',
         okButtonProps:{ghost:"true", type:"danger"},
         content: 'This Gateway will be permanently removed from the database. This action cannot be reversed...',
-        onOk(){axios.delete(`http://localhost:3001/gateway/${deleteG.id}`).then(() => Success()).catch(function (error) {console.log(error);});},
+        onOk(){axios.delete(`http://localhost:3001/gateway/${deleteG.id}`).then(() => success()).catch(function (error) {console.log(error);});},
                  
       });
     }
     
-    function Success(){
+    function success(){
       
       setLoading(true);
       axios.get('http://localhost:3001/gateway/', {headers: {} }).then( result => setData(result.data.result))  
@@ -125,11 +125,11 @@ const List = () => {
         })
     }
 
-    function SuccessForEdit(Gatewayedit){     
+    function successForEdit(gatewayEdit){     
       
       Modal.destroyAll()
 
-      axios.get(`http://localhost:3001/gateway/` + Gatewayedit.id, {headers: {} }).then(function (result) {ForEdit(result.data);})  
+      axios.get(`http://localhost:3001/gateway/` + gatewayEdit.id, {headers: {} }).then(function (result) {forEdit(result.data);})  
       .catch(function (error) {console.log(error);})
 
       notification['success']({
@@ -144,7 +144,7 @@ const List = () => {
 
         <div className="card-header">
           <Space size="middle">
-            <Button type="primary" ghost icon={<AppstoreAddOutlined />}  onClick={() => ForCreate()}>Add Gateway</Button>                  
+            <Button type="primary" ghost icon={<AppstoreAddOutlined />}  onClick={() => forCreate()}>Add Gateway</Button>                  
           </Space> 
         </div>
 
@@ -159,9 +159,9 @@ const List = () => {
               rowKey="action"
               render={(data) => (
             <Space size="middle">
-              <Button  icon={<EyeOutlined />}   onClick={() => ForVew(data)}></Button>                                          
-              <Button  icon={<EditOutlined />}   onClick={() => ForEdit(data)}></Button>                                            
-              <Button  icon={<DeleteOutlined />}  onClick={() => ForDelete(data)}></Button>            
+              <Button  icon={<EyeOutlined />}   onClick={() => forVew(data)}></Button>                                          
+              <Button  icon={<EditOutlined />}   onClick={() => forEdit(data)}></Button>                                            
+              <Button  icon={<DeleteOutlined />}  onClick={() => forDelete(data)}></Button>            
             </Space>
         )}
             />    

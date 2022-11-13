@@ -8,14 +8,35 @@ import '../styles.css'
 
 const axios = getAxiosInstance();
 
+function Cancel() { 
+  Modal.destroyAll();    
+ }
+
+function isValidIP(str) {
+  let verdad = str.split('.');
+  if(verdad.length !== 4)
+    return false;
+  for(let i in verdad){
+    if(!/^\d+$/g.test(verdad[i])
+    ||+verdad[i]>255
+    ||+verdad[i]<0
+    ||/^[0][0-9]{1,2}/.test(verdad[i]))
+      return false;
+  }
+  return true
+}
 
 function Edit(props) { 
   
   const {
-    Gatewayedit,
+    gatewayEdit,
     editG,
-    SuccessForEdit,
+    successForEdit,
   } = props;
+
+  const onFinish = (values) => {    
+    gatewayEdit(values);
+  };
 
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(false);
@@ -30,19 +51,15 @@ function Edit(props) {
   
   }, [editG])
 
-  const {info} = Modal;
- 
-  const onFinish = (values) => {    
-    Gatewayedit(values);
-  };
+  const {info} = Modal; 
 
-  const Peripherald = details => {
+  const peripheralAdd = details => {
    
-    axios.post(`http://localhost:3001/peripheral_device/`,{ ...details}).then( () => SuccessForEdit(editG))
+    axios.post(`http://localhost:3001/peripheral_device/`,{ ...details}).then( () => successForEdit(editG))
     .catch(function (error) {console.log(error);});
     }
     
-  function AddPeripherald(){
+  function addPeripherald(){
    
     info({
 
@@ -52,31 +69,12 @@ function Edit(props) {
       closable:'true',
       className:'hidden-footer',
       okButtonProps:{ disabled: true },
-      content:<DeviceForm Peripherald={Peripherald} id={editG.id}/>,
+      content:<DeviceForm peripheralAdd={peripheralAdd} id={editG.id}/>,
 
     });
 
   }
 
-  function isValidIP(str) {
-    let verdad = str.split('.');
-    if(verdad.length !== 4)
-      return false;
-    for(let i in verdad){
-      if(!/^\d+$/g.test(verdad[i])
-      ||+verdad[i]>255
-      ||+verdad[i]<0
-      ||/^[0][0-9]{1,2}/.test(verdad[i]))
-        return false;
-    }
-    return true
-}
-
-  function Cancel() { 
-    Modal.destroyAll();    
-   }
-
-  
     return(
 
       <div>
@@ -171,7 +169,7 @@ function Edit(props) {
       </Form.Item>
 
       <Form.Item >      
-        <Button type="dashed" disabled={data.length>9} loading={ loading } onClick={() => AddPeripherald()}  block icon={<PlusOutlined />}>{(data.length>9) ? ('Peripherals devices full') : ('Create Peripheral device')}</Button>         
+        <Button type="dashed" disabled={data.length>9} loading={ loading } onClick={() => addPeripherald()}  block icon={<PlusOutlined />}>{(data.length>9) ? ('Peripherals devices full') : ('Create Peripheral device')}</Button>         
       </Form.Item>
 
       <br></br><br></br>

@@ -3,10 +3,14 @@ import {Form, Input, Radio, Button, Modal} from 'antd';
 import DevicesFilter from '../Peripheral/DevicesFilter';
 import '../styles.css'
 
+function Cancel() { 
+  Modal.destroyAll();    
+}  
+
 function View(props) { 
   
   const {
-    GatewayView,
+    gatewayView,
     viewG,    
   } = props;
 
@@ -18,12 +22,8 @@ function View(props) {
     };
   
     const onFinish = (values) => {
-      GatewayView(values);
-    };
-
-    function Cancel() { 
-      Modal.destroyAll();    
-    }    
+      gatewayView(values);
+    };  
   
       return(
         
