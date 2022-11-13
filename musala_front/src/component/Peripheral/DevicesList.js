@@ -1,10 +1,12 @@
 import React, {useState,useEffect} from 'react';
-import { Table, Space, Button, Modal} from 'antd';
+import { Table, Space, Button, Modal, DatePicker} from 'antd';
 import getAxiosInstance from '../../api/get-axios-instance';
 import DeviceView from './DeviceView';
 import { EyeOutlined, EditOutlined, DeleteOutlined, SmileOutlined} from '@ant-design/icons';
 import DevicesEdit from './DevicesEdit'
 import '../styles.css'
+import moment from 'moment';
+const dateFormat = 'YYYY/MM/DD';
 
 const axios = getAxiosInstance();
 
@@ -123,44 +125,42 @@ const DevicesList = () => {
 
     }
    
-    return(      
-
-        
-          
-      <div className="card">
-            
-            <div className="card-header">
-            <Space size="middle">
-            <Button></Button>
-            </Space> 
-            </div>  
-
-        <Table dataSource={data} loading={loading} >
-          <Column title="UID" dataIndex='id' rowKey='id' />
-          <Column title="Vendor" dataIndex='vendor' rowKey="vendor" />
-          <Column title="Date Created" dataIndex='date_created'rowKey="date_created" />             
-          <Column title="Status" dataIndex='status'rowKey="status" />
-          <Column title="Gateway Id" dataIndex='gatewayId'rowKey="gatewayId" />  
-          <Column
-            title="Action"
-            rowKey="action"
-            render={(data) => (
-          <Space size="middle">
-            <Button  icon={<EyeOutlined />}   onClick={() => ForVew(data)}></Button>                                          
-            <Button  icon={<EditOutlined />}   onClick={() => ForEdit(data)}></Button>                                            
-            <Button  icon={<DeleteOutlined />}  onClick={() => ForDelete(data)}></Button>            
-          </Space>
-      )}
-          />    
-        </Table> 
-
-        
-                
-      </div>    
+    return(
       
+      <div>
+            
+        <div className="card-header">
+          <Space size="middle"><Button></Button></Space> 
+        </div>  
+        <div>
+          
+          <Table dataSource={data} loading={loading} >
+            <Column title="UID" dataIndex='id' rowKey='id' />
+            <Column title="Vendor" dataIndex='vendor' rowKey="vendor" />
+            <Column 
+            title="Date Created"
+            rowKey="date_created"
+            render={(data) => (
+              <DatePicker bordered={false} open={false} value={moment(data.date_created, dateFormat)}/>             
+               )}
+              /> 
+            <Column title="Status" dataIndex='status'rowKey="status" />
+            <Column title="Gateway Id" dataIndex='gatewayId'rowKey="gatewayId" />  
+            <Column
+              title="Action"
+              rowKey="action"
+              render={(data) => (
+            <Space size="middle">
+              <Button  icon={<EyeOutlined />}   onClick={() => ForVew(data)}></Button>                                          
+              <Button  icon={<EditOutlined />}   onClick={() => ForEdit(data)}></Button>                                            
+              <Button  icon={<DeleteOutlined />}  onClick={() => ForDelete(data)}></Button>            
+            </Space>
+        )}
+            />    
+          </Table>
+
+        </div>          
+      </div>      
     );
-
-   
-
 }
 export default DevicesList;

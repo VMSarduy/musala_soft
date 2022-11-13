@@ -60,26 +60,21 @@ const App = () => {
       {(islog) ? (
       
       <Router>       
-        <nav className="navbar navbar-dark bg-dark">
-            
-          
-              <div>
-                <Link className="navbar-brand" to="/"> Gateway <span className="sr-only"></span></Link>
-                <Link className="navbar-brand" to="/peripherals_devicesList">Peripherals devices</Link>
-              </div> 
-              <div className="boxes">
-              <button type="button" className="btn btn-primary"   onClick={() => Logout()} >Logout</button>
-              </div>
-            
+        
+        <nav className="navbar navbar-dark bg-dark">          
+          <div>
+            <Link className="navbar-brand" to="/"> Gateway <span className="sr-only"></span></Link>
+            <Link className="navbar-brand" to="/peripherals_devicesList">Peripherals devices</Link>
+          </div> 
+          <div className="boxes">
+            <button type="button" className="btn btn-primary"   onClick={() => Logout()} >Logout</button>
+          </div>            
         </nav> 
 
-        <div className="App">        
-          
+        <div className="card">           
           <Routes>
-
             <Route exact path='/*' element={<List/>} />           
-            <Route  path='/peripherals_devicesList' element={<DevicesList/>} />     
-
+            <Route  path='/peripherals_devicesList' element={<DevicesList/>} /> 
           </Routes>
         </div>     
       

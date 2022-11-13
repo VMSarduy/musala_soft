@@ -13,26 +13,21 @@ function LoginForm({Login, error}) {
     return (
       
       <div>
-        
-        <br></br>
-        
+      <br></br>
       <Form
-      name="basic"
       labelCol={{
-        span: 8,
+        span: 6,
       }}
       wrapperCol={{
-        span: 16,
+        span: 22,
       }}
-      onFinish={onFinish}      
-     >
+      layout="vertical"      
+      onFinish={onFinish}
+              
+    >
        {(error !== "") ? (<div className='App'>{error}<br></br></div>) : ""}
                
-        <Form.Item
-        wrapperCol={{
-          offset: 4,
-          span: 16,
-        }}
+        <Form.Item     
           name="email"
           rules={[
             {
@@ -43,15 +38,12 @@ function LoginForm({Login, error}) {
         >
           <Input prefix={<MailOutlined className="site-form-item-icon" />} 
             type="email"
-           placeholder="Email"
-           onChange={e => SetDetails({...details, email: e.target.value})} value={details.email}/>
+            placeholder="Email"
+            onChange={e => SetDetails({...details, email: e.target.value})} value={details.email}
+            />
         </Form.Item>
         
-        <Form.Item
-        wrapperCol={{
-          offset: 4,
-          span: 16,
-        }}
+        <Form.Item        
           name="password"
           rules={[
             {
@@ -68,14 +60,10 @@ function LoginForm({Login, error}) {
           />
         </Form.Item>   
         
-        <Form.Item shouldUpdate
-        wrapperCol={{
-          offset: 4,
-          span: 16,
-        }}>
+        <Form.Item shouldUpdate>
           {() => (            
             <nav className="boxes">
-            <Button   type="primary" htmlType="submit"> Loging </Button>             
+            <Button ghost type="primary" htmlType="submit"> Loging </Button>             
             </nav>             
           )}
         </Form.Item>  

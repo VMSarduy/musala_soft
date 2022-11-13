@@ -148,37 +148,34 @@ const List = () => {
     return(      
           
       <div className="card">
-            
-            <div className="card-header">
-            <Space size="middle">
-            <Button type="primary" ghost icon={<AppstoreAddOutlined />}  onClick={() => ForCreate()}>Add Gateway</Button>                  
-            </Space> 
-            </div>        
 
-        <Table dataSource={data} loading={loading} >
-          <Column title="Serial Number" dataIndex='serial_mumber' rowKey='serial_mumber' />
-          <Column title="Readable Name" dataIndex='human_readable_name' rowKey="human_readable_name" />
-          <Column title="IPv4 Address" dataIndex='ipv4_address'rowKey="ipv4_address" />             
-          <Column
-            title="Action"
-            rowKey="action"
-            render={(data) => (
+        <div className="card-header">
           <Space size="middle">
-            <Button  icon={<EyeOutlined />}   onClick={() => ForVew(data)}></Button>                                          
-            <Button  icon={<EditOutlined />}   onClick={() => ForEdit(data)}></Button>                                            
-            <Button  icon={<DeleteOutlined />}  onClick={() => ForDelete(data)}></Button>            
-          </Space>
-      )}
-          />    
-        </Table> 
+            <Button type="primary" ghost icon={<AppstoreAddOutlined />}  onClick={() => ForCreate()}>Add Gateway</Button>                  
+          </Space> 
+        </div>
 
-        
-                
-      </div>    
-      
+        <div >         
+
+          <Table dataSource={data} loading={loading} >
+            <Column title="Serial Number" dataIndex='serial_mumber' rowKey='serial_mumber' />
+            <Column title="Readable Name" dataIndex='human_readable_name' rowKey="human_readable_name" />
+            <Column title="IPv4 Address" dataIndex='ipv4_address'rowKey="ipv4_address" />             
+            <Column
+              title="Action"
+              rowKey="action"
+              render={(data) => (
+            <Space size="middle">
+              <Button  icon={<EyeOutlined />}   onClick={() => ForVew(data)}></Button>                                          
+              <Button  icon={<EditOutlined />}   onClick={() => ForEdit(data)}></Button>                                            
+              <Button  icon={<DeleteOutlined />}  onClick={() => ForDelete(data)}></Button>            
+            </Space>
+        )}
+            />    
+          </Table>
+
+        </div>          
+      </div>
     );
-
-   
-
 }
 export default List;

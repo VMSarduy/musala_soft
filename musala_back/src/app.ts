@@ -9,7 +9,7 @@ const app = express();
 app.use(express.json());
 
 app.use((_req, res, next) => {
-  res.header('Access-Control-Allow-Origin', 'http://0.0.0.0:3000');
+  res.header('Access-Control-Allow-Origin', '*');
   res.header('Access-Control-Allow-Methods', 'PUT, DELETE');
   res.header('Access-Control-Allow-Headers', 'Origin, Methods, X-Requested-With, Content-Type, Accept');
   next();

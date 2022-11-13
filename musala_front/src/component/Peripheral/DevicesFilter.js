@@ -1,11 +1,13 @@
 import React, {useState,useEffect} from 'react';
-import { Table, Space, Button, Modal} from 'antd';
+import { Table, Space, Button, Modal, DatePicker} from 'antd';
 import getAxiosInstance from '../../api/get-axios-instance';
 import DeviceView from './DeviceView';
 import { EyeOutlined, EditOutlined, DeleteOutlined, SmileOutlined,} from '@ant-design/icons';
 import DevicesEdit from './DevicesEdit'
 import View from '../Gateway/View';
 import '../styles.css'
+import moment from 'moment';
+const dateFormat = 'YYYY/MM/DD';
 
 const axios = getAxiosInstance();
 
@@ -125,16 +127,20 @@ const DevicesFilter = (props) => {
     }
      
    
-    return(      
-
-        <div><br></br><br></br>
-          
+    return(
+      
       <div className="card">
-
+        
         <Table dataSource={data} loading={loading} >
           <Column title="UID" dataIndex='id' rowKey='id' />
           <Column title="Vendor" dataIndex='vendor' rowKey="vendor" />
-          <Column title="Date Created" dataIndex='date_created'rowKey="date_created" />             
+          <Column 
+            title="Date Created"
+            rowKey="date_created"
+            render={(data) => (
+              <DatePicker bordered={false} open={false} value={moment(data.date_created, dateFormat)}/>             
+               )}
+              />             
           <Column title="Status" dataIndex='status'rowKey="status" />  
           <Column
             title="Action"
@@ -147,15 +153,9 @@ const DevicesFilter = (props) => {
           </Space>
       )}
           />    
-        </Table> 
+        </Table>
 
-        
-                
-      </div>    
-      </div> 
+      </div>       
     );
-
-   
-
 }
 export default DevicesFilter;
