@@ -1,8 +1,8 @@
 import React, {useState,useEffect} from 'react';
-import { Table, Space, Button, Modal, DatePicker} from 'antd';
+import { Table, Space, Button, Modal, DatePicker, notification} from 'antd';
 import getAxiosInstance from '../../api/get-axios-instance';
 import DeviceView from './DeviceView';
-import { EyeOutlined, EditOutlined, DeleteOutlined, SmileOutlined,} from '@ant-design/icons';
+import { EyeOutlined, EditOutlined, DeleteOutlined } from '@ant-design/icons';
 import DevicesEdit from './DevicesEdit'
 import View from '../Gateway/View';
 import '../styles.css'
@@ -17,7 +17,7 @@ const DevicesFilter = (props) => {
   const [loading, setLoading] = useState(false);
   const [peripheral_device, Setperipheral_device] = useState();
   
-  const { info, error, success } = Modal;
+  const { info, error } = Modal;
   const { Column } = Table;
  
     useEffect(() => {
@@ -116,14 +116,12 @@ const DevicesFilter = (props) => {
       axios.get(`http://localhost:3001/gateway/` + gateway.id, {headers: {} }).then(result => ForVewF(result.data))  
         .catch(function (error) {console.log(error);});
 
-      success({
+      Modal.destroyAll()
 
-        title:"Successful operation" ,
-        icon: <SmileOutlined />,        
-        content:"Your operation was successful!",
-        onOk: Modal.destroyAll(),
-
-      });
+      notification['success']({
+        message:"Successful operation",
+        description:"Your operation was successful.",              
+        })
     }
      
    

@@ -1,8 +1,8 @@
 import React, {useState,useEffect} from 'react';
-import { Table, Space, Button, Modal} from 'antd';
+import { Table, Space, Button, Modal, notification } from 'antd';
 import getAxiosInstance from '../../api/get-axios-instance';
 import View from './View';
-import { EyeOutlined, EditOutlined, DeleteOutlined, SmileOutlined, GatewayOutlined, AppstoreAddOutlined} from '@ant-design/icons';
+import { EyeOutlined, EditOutlined, DeleteOutlined, GatewayOutlined, AppstoreAddOutlined} from '@ant-design/icons';
 import Create from '../Gateway/Create'
 import Edit from '../Gateway/Edit'
 import '../styles.css'
@@ -15,7 +15,7 @@ const List = () => {
   const [loading, setLoading] = useState(false);
   const [gateway, Setgateway] = useState();
   
-  const { info, error, success } = Modal;
+  const { info, error } = Modal;
   const { Column } = Table;
  
     useEffect(() => {
@@ -112,38 +112,31 @@ const List = () => {
     }
     
     function Success(){
-
+      
       setLoading(true);
       axios.get('http://localhost:3001/gateway/', {headers: {} }).then( result => setData(result.data.result))  
       .catch(function (error) {console.log(error);}).finally( ()=> setLoading(false))
-
-      success({
-
-        title:"Successful operation" ,
-        icon: <SmileOutlined />,        
-        content:"Your operation was successful!",
-        onOk: Modal.destroyAll(),
-
-      });
-    }
-
-    function SuccessForEdit(Gatewayedit){
-      ReloadForEdit(Gatewayedit)
-      success({
-
-        title:"Successful operation" ,
-        icon: <SmileOutlined />,        
-        content:"Your operation was successful!",
-      });
-    }
-
-    function ReloadForEdit(Gatewayedit){      
-      Modal.destroyAll();
       
-      axios.get(`http://localhost:3001/gateway/` + Gatewayedit.id, {headers: {} }).then(function (result) {ForEdit(result.data);})  
-      .catch(function (error) {console.log(error);})      
+      Modal.destroyAll()
 
+      notification['success']({
+        message:"Successful operation",
+        description:"Your operation was successful.",              
+        })
     }
+
+    function SuccessForEdit(Gatewayedit){     
+      
+      Modal.destroyAll()
+
+      axios.get(`http://localhost:3001/gateway/` + Gatewayedit.id, {headers: {} }).then(function (result) {ForEdit(result.data);})  
+      .catch(function (error) {console.log(error);})
+
+      notification['success']({
+        message:"Successful operation",
+        description:"Your operation was successful.",              
+        })           
+    } 
    
     return(      
           

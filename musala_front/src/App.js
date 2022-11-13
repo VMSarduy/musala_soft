@@ -3,7 +3,7 @@ import 'antd/dist/antd.css';
 import List from "./component/Gateway/List";
 import DevicesList from "./component/Peripheral/DevicesList"
 import React, { useState } from 'react';
-import { Modal,  Alert } from 'antd';
+import { Modal, notification } from 'antd';
 import LoginForm from './component/LoginForm';
 import image from "./img/filename.jpg"
 import { BrowserRouter as Router, Routes, Route, Link} from "react-router-dom"
@@ -36,12 +36,15 @@ const App = () => {
     setIslog(true);    
    }else{
 
-    setError(<Alert
-      message="Alert"
-      description="The credentials do not match, you cannot access."
-      type="error"
-      showIcon      
-    />);
+    setError(
+
+      notification['warning']({
+        message:"Alert",
+        description:"The credentials do not match, you cannot access.",
+        placement:'top'      
+        })
+        
+    );
    }
 
   }

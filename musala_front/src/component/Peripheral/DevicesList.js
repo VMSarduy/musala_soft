@@ -1,8 +1,8 @@
 import React, {useState,useEffect} from 'react';
-import { Table, Space, Button, Modal, DatePicker} from 'antd';
+import { Table, Space, Button, Modal, DatePicker, notification} from 'antd';
 import getAxiosInstance from '../../api/get-axios-instance';
 import DeviceView from './DeviceView';
-import { EyeOutlined, EditOutlined, DeleteOutlined, SmileOutlined} from '@ant-design/icons';
+import { EyeOutlined, EditOutlined, DeleteOutlined} from '@ant-design/icons';
 import DevicesEdit from './DevicesEdit'
 import '../styles.css'
 import moment from 'moment';
@@ -16,7 +16,7 @@ const DevicesList = () => {
   const [loading, setLoading] = useState(false);
   const [peripheral_device, Setperipheral_device] = useState();
   
-  const { info, error, success } = Modal;
+  const { info, error } = Modal;
   const { Column } = Table;
  
     useEffect(() => {
@@ -96,25 +96,25 @@ const DevicesList = () => {
       axios.get('http://localhost:3001/peripheral_device/', {headers: {} }).then( result => setData(result.data.result))  
       .catch(function (error) {console.log(error);}).finally(()=> setLoading(false))
 
-      success({
+      Modal.destroyAll()
 
-        title:"Successful operation" ,
-        icon: <SmileOutlined />,        
-        content:"Your operation was successful!",
-        onOk: Modal.destroyAll(),
-
-      });
+      notification['success']({
+        message:"Successful operation",
+        description:"Your operation was successful.",              
+        })
     }
 
     function SuccessForEdit(Peripheral_deviceedit){
-      ReloadForEdit(Peripheral_deviceedit)
-      success({
-
-        title:"Successful operation" ,
-        icon: <SmileOutlined />,        
-        content:"Your operation was successful!",
-        
-      });
+      
+      Modal.destroyAll();      
+      
+      axios.get(`http://localhost:3001/peripheral_device/` + Peripheral_deviceedit.id, {headers: {} }).then(function (result) {ForEdit(result.data);})  
+      .catch(function (error) {console.log(error);})
+      
+      notification['success']({
+        message:"Successful operation",
+        description:"Your operation was successful.",              
+        })     
     }
 
     function ReloadForEdit(Peripheral_deviceedit){      

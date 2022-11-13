@@ -2,8 +2,12 @@ import React, { useState} from 'react';
 import { Form, Input, Button } from 'antd';
 import { LockOutlined, MailOutlined } from '@ant-design/icons';
 import './styles.css'
-function LoginForm({Login, error}) {  
-  
+
+function LoginForm(props) {  
+  const {
+    Login,
+    error,    
+  } = props;
   const [details, SetDetails] = useState({email:"", password:""});
   const onFinish = (values) => {
     
@@ -25,7 +29,7 @@ function LoginForm({Login, error}) {
       onFinish={onFinish}
               
     >
-       {(error !== "") ? (<div className='App'>{error}<br></br></div>) : ""}
+       {(error !== "") ? (<div>{error}</div>) : ""}
                
         <Form.Item     
           name="email"
