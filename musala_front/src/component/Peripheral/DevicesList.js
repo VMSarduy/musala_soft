@@ -117,15 +117,7 @@ const DevicesList = () => {
         })     
     }
 
-    function ReloadForEdit(Peripheral_deviceedit){      
-      
-      Modal.destroyAll();      
-      axios.get(`http://localhost:3001/peripheral_device/` + Peripheral_deviceedit.id, {headers: {} }).then(function (result) {ForEdit(result.data);})  
-      .catch(function (error) {console.log(error);})
-
-    }
-   
-    return(
+     return(
       
       <div>
             
