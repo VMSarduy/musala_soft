@@ -1,6 +1,10 @@
+import React, {useState, useEffect} from 'react';
 import {Form, Input, Button, Modal} from 'antd';
 import { InfoCircleOutlined } from '@ant-design/icons';
 import '../styles.css'
+import getAxiosInstance from '../../api/get-axios-instance';
+
+const axios = getAxiosInstance();
 
 function cancel() { 
   Modal.destroyAll();    
@@ -22,10 +26,24 @@ function isValidIP(str) {
 
 function Create(props) {    
 const {gatewayCreate} = props;
+const [data, setData] = useState([]);
 
-const onFinish = (values) => {    
+useEffect(() => {
+axios.get('http://localhost:3001/gateway/', {headers: {} }).then( result => setData(result.data.result))  
+.catch(function (error) {console.log(error);}).finally()
+}, [])
+
+    const onFinish = (values) => {    
   gatewayCreate(values);
-  }; 
+  };
+  
+function serialUnique(str) {
+  for(let i=0; i<data.length;i++){
+    if(data[i].serial_mumber === str)
+    return false;
+  }
+  return true
+}
 
     return(
 
@@ -49,10 +67,21 @@ const onFinish = (values) => {
       <Form.Item
           name="serial_mumber"
           rules={[
+           
             {
               required: true,
               message: 'Please enter a valid serial mumber!',
             },
+
+            () => ({
+              validator(_, value) {
+                if (serialUnique(value)||value==="") {
+                  return Promise.resolve();
+                }
+                return Promise.reject(new Error('This serial number already exists, please use another'));
+              },
+            }),
+
           ]}
           label="Serial Number"
           tooltip={{

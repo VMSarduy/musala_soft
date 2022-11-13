@@ -6,6 +6,7 @@ import DeviceForm from '../Peripheral/DeviceForm';
 import getAxiosInstance from '../../api/get-axios-instance';
 import '../styles.css'
 
+
 const axios = getAxiosInstance();
 
 function cancel() { 
@@ -39,6 +40,7 @@ function Edit(props) {
   };
 
   const [data, setData] = useState([]);
+  const [dataValid, setDataValid] = useState([]);
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
@@ -48,6 +50,8 @@ function Edit(props) {
     axios.get(`http://localhost:3001/peripheral_device/?gatewayId=${editG.id}`, {headers: {} }).then( result => setData(result.data.result))  
     .catch(function (error) {console.log(error);}).finally(()=> setLoading(false))     
     
+    axios.get('http://localhost:3001/gateway/', {headers: {} }).then( result => setDataValid(result.data.result))  
+    .catch(function (error) {console.log(error);}).finally()
   
   }, [editG])
 
@@ -58,6 +62,16 @@ function Edit(props) {
     axios.post(`http://localhost:3001/peripheral_device/`,{ ...details}).then( () => successForEdit(editG))
     .catch(function (error) {console.log(error);});
     }
+
+    function serialUnique(str) {
+    
+      for(let i=0; i<dataValid.length;i++){
+        if(editG.serial_mumber!==str && dataValid[i].serial_mumber === str)
+        return false;
+      }
+    
+      return true
+    }  
     
   function addPeripherald(){
    
@@ -108,6 +122,16 @@ function Edit(props) {
               required: true,
               message: 'Please enter a valid serial mumber!',
             },
+
+            () => ({
+              validator(_, value) {
+                if (serialUnique(value)||value==="") {
+                  return Promise.resolve();
+                }
+                return Promise.reject(new Error('This serial number already exists, please use another'));
+              },
+            }),
+
           ]}
           label="Serial Number"
           tooltip={{
