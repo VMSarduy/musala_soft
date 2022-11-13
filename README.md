@@ -1,4 +1,5 @@
 # musala_soft
+
 Implement a solution for managing gateways - master devices that control multiple peripheral devices storing information about these gateways and their associated devices, the information is stored in a postgres database. The service also offer an operation for displaying information about all stored gateways (and their devices) and an operation for displaying details for a single gateway. Finally, is possible to add and remove a device from a gateway. It is implemented using React.js, Prisma ORM, Node.js, Axios, TypeScript, JavaScript, CSS, Bootstrap, Ant.design and Postgres.
 
 # Development dependencies:
@@ -32,3 +33,7 @@ musala_back dependencies:
 You can deploy the app easiliy if you have docker, docker-compose and make installed. Go to the root of the project and execute the command:
 
 `make run`
+
+# Email and password
+email: root@gmail.com
+password: Vi9oy3haem5Shee1chaeM3phu4iFoaGh

@@ -8,7 +8,7 @@ import '../styles.css'
 
 const axios = getAxiosInstance();
 
-function Cancel() { 
+function cancel() { 
   Modal.destroyAll();    
  }
 
@@ -178,7 +178,7 @@ function Edit(props) {
           {() => (            
             <nav className="boxes">
             <Button  ghost type="primary" htmlType="submit"> Submit </Button> 
-            <Button  ghost type="danger" onClick={() => Cancel()}>Cancel</Button>                        
+            <Button  ghost type="danger" onClick={() => cancel()}>Cancel</Button>                        
             </nav>             
           )}
         </Form.Item>           

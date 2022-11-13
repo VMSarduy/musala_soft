@@ -8,7 +8,7 @@ function LoginForm(props) {
     Login,
     error,    
   } = props;
-  const [details, SetDetails] = useState({email:"", password:""});
+  const [details, setDetails] = useState({email:"", password:""});
   const onFinish = (values) => {
     
     Login(details);     
@@ -42,7 +42,7 @@ function LoginForm(props) {
             <Input prefix={<MailOutlined className="site-form-item-icon" />} 
               type="email"
               placeholder="Email"
-              onChange={e => SetDetails({...details, email: e.target.value})} value={details.email}
+              onChange={e => setDetails({...details, email: e.target.value})} value={details.email}
               />
           </Form.Item>
           
@@ -59,7 +59,7 @@ function LoginForm(props) {
               prefix={<LockOutlined className="site-form-item-icon" />}
               type="password"
               placeholder="Password"
-              onChange={e => SetDetails({...details, password: e.target.value})} value={details.password}
+              onChange={e => setDetails({...details, password: e.target.value})} value={details.password}
             />
           </Form.Item>   
           

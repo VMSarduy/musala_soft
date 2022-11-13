@@ -3,7 +3,7 @@ import {Form, Input, Radio, Button, Modal} from 'antd';
 import DevicesFilter from '../Peripheral/DevicesFilter';
 import '../styles.css'
 
-function Cancel() { 
+function cancel() { 
   Modal.destroyAll();    
 }  
 
@@ -87,7 +87,7 @@ function View(props) {
        <Form.Item shouldUpdate>
                      
             <nav className="boxes">
-            <Button  ghost type="danger" onClick={() => Cancel()}>Cancel</Button>                      
+            <Button  ghost type="danger" onClick={() => cancel()}>Cancel</Button>                      
             </nav>             
         
         </Form.Item>

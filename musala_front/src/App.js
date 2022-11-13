@@ -17,7 +17,7 @@ const App = () => {
   const adminUser =
   {
     email:"root@gmail.com",
-    password: "root"
+    password: "Vi9oy3haem5Shee1chaeM3phu4iFoaGh"
   } 
 
   const backgroundImageURL =image;
